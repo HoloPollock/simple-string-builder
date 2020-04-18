@@ -32,11 +32,13 @@ impl ToBytes for &str {
 /// 
 /// # Example
 /// 
+/// ```
 /// let name = "quinn".to_string();
 /// let mut b = Builder::new();
 /// b.append("Hello".to_string());
 /// b.append(" My Name Is".to_string());
 /// b.append(format!(" {} and I Like you 😍", name));
+/// ```
 impl Builder {
     pub fn new() -> Self {
         Builder {
