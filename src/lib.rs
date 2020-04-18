@@ -1,10 +1,20 @@
 use std::str;
 
-///! # Simple String Builder
-///! Super basic string builder based on my memory of Javas
-///! Accepts Strings and &str
-///! Some one probobly did this better
+/// ## Simple String Builder
+/// Super basic string builder based on my memory of Javas
+/// Accepts Strings and &str
+/// Some one probobly did this better
 
+/// # Example
+/// 
+/// ```
+/// let name = "quinn".to_string();
+/// let mut b = Builder::new();
+/// b.append("Hello");
+/// b.append(" My Name Is".to_string());
+/// b.append(format!(" {} and I Like you 😍", name));
+/// let: Result<String, Utf8Error> = b.try_to_string(); 
+/// ```
 #[derive(Debug)]
 pub struct Builder { 
     builder: Vec<u8> 
@@ -13,6 +23,7 @@ pub struct Builder {
 
 /// Trait to convert to byte vec implement this to allow you struct to be used by builder
 pub trait ToBytes {
+    ///convert your type to bytes repersenting string of your type
     fn to_bytes(self) -> Vec<u8>;
 }
 
@@ -29,16 +40,6 @@ impl ToBytes for &str {
 }
 
 
-/// 
-/// # Example
-/// 
-/// ```
-/// let name = "quinn".to_string();
-/// let mut b = Builder::new();
-/// b.append("Hello".to_string());
-/// b.append(" My Name Is".to_string());
-/// b.append(format!(" {} and I Like you 😍", name));
-/// ```
 impl Builder {
     pub fn new() -> Self {
         Builder {
@@ -50,13 +51,13 @@ impl Builder {
         self.builder.append(&mut buf.to_bytes())
     }
 
-    pub fn to_string(&self) -> Result<String, str::Utf8Error> {
+    ///Try to convert to string fails if bytes don't repersent utf-8
+    pub fn try_to_string(&self) -> Result<String, str::Utf8Error> {
         let string_maybe = str::from_utf8(&self.builder);
         match string_maybe {
             Ok(s) => Ok(s.to_owned()),
             Err(e) => Err(e)
         }
-
     }
 
 }
@@ -69,11 +70,11 @@ mod tests {
     fn test_string() {
         let name = "quinn".to_string();
         let mut b = Builder::new();
-        b.append("Hello".to_string());
+        b.append("Hello");
         b.append(" My Name Is".to_string());
         b.append(format!(" {} and I Like you 😍", name));
 
-        assert_eq!(b.to_string().unwrap(), "Hello My Name Is quinn and I Like you 😍".to_owned())
+        assert_eq!(b.try_to_string().unwrap(), "Hello My Name Is quinn and I Like you 😍".to_owned())
     }
 }
 
