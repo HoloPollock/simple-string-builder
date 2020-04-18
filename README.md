@@ -10,6 +10,6 @@ cargo add simple-string-builder
 
 Without  
 add to cargo.toml
-```
-simple-string-builder = "0.1.0
+```toml
+simple-string-builder = "0.1.0"
 ```
