@@ -5,6 +5,7 @@ authors = ["Quinn Pollock <contact@quinnpollock.net>"]
 edition = "2018"
 description = "Super basic string builder based on my memory of Javas"
 repository = "https://github.com/HoloPollock/simple-string-builder"
+license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
