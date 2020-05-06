@@ -11,5 +11,5 @@ cargo add simple-string-builder
 Without  
 add to cargo.toml
 ```toml
-simple-string-builder = "0.1.0"
+simple-string-builder = "0.2.0"
 ```
